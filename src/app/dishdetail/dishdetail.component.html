@@ -1,14 +1,14 @@
 <div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign.gt-md="space-around center"
   fxLayoutGap="10px" fxLayoutGap.xs="0">
   	<div fxFlex="40">
-    	<div fxFlex *ngIf="dish">
+    	<div fxFlex *ngIf="dish" [@visibility]="visibility" [@expand]>
       		<md-card>
         		<md-card-header>
           			<md-card-title>
             			<h3>{{ dish.name | uppercase }}</h3>
           			</md-card-title>
         		</md-card-header>
-        		<img md-card-image src="{{dish.image}}" alt="{{dish.name}}">
+        		<img md-card-image src="{{BaseURL +dish.image}}" alt="{{dish.name}}">
         		<md-card-content>
           			<p>{{ dish.description}} </p>
         		</md-card-content>
@@ -25,7 +25,7 @@
       		</md-card>
     	</div>
   	</div>
-  	<div fxFlex="40" *ngIf="dish">
+  	<div fxFlex="40" *ngIf="dish" [@visibility]="visibility" [@expand]>
 		<h3>Comments</h3>
 		<md-list>
 			<md-list-item *ngFor="let comment of dish.comments">
@@ -83,7 +83,11 @@
 				  </form>
 	  
 			</div>
-			<div fxFlex [hidden]="dish">
+			<div fxFlex [hidden]="dish || errMess">
 				<mat-spinner></mat-spinner> <h4>Loading . . . Please Wait</h4>
-			</div>  
+			</div> 
+			<div fxFlex *ngIf="errMess">
+				<h2>Error</h2>
+				<h4>{{errMess}}</h4>
+			  </div> 
 </div>
